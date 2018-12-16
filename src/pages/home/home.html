@@ -9,6 +9,7 @@
 <ion-content padding>
   <button ion-button (click)="doAlert(name)">Button</button>
   <button ion-button (click)="doLogin()">login</button>
+  <button ion-button (click)="doSignIn()">Sign In</button>
   <ion-item>
   <ion-label fixed>Username</ion-label>
   <ion-input type="text" value="" [(ngModel)]="name"></ion-input>
@@ -16,6 +17,6 @@
 
   <p *ngFor="let user of data">
     {{user.name}}
-  </p>
+    </p>
   <p>{{name}}</p>
 </ion-content>

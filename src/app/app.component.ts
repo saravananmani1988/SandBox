@@ -2,6 +2,7 @@ import { Component , ViewChild } from '@angular/core';
 import { Platform , Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import * as firebase from 'firebase';
 
 import { HomePage } from '../pages/home/home';
 @Component({
@@ -23,5 +24,13 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+    firebase.initializeApp({
+      apiKey: 'AIzaSyDwCe3JJmAB71kkOWapFAIzVsC7XsTzG-A',
+      authDomain: 'agri101-89218.firebaseapp.com',
+      databaseURL: 'https://agri101-89218.firebaseio.com',
+      storageBucket: 'agri101-89218.appspot.com',
+      messagingSenderId: '147457580926',
+        });
   }
 }

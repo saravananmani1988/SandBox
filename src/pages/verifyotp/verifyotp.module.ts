@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SignInPage } from './sign-in';
-
+import { VerifyotpPage } from './verifyotp';
 
 @NgModule({
   declarations: [
-    SignInPage,
+    VerifyotpPage,
   ],
   imports: [
-    IonicPageModule.forChild(SignInPage),
+    IonicPageModule.forChild(VerifyotpPage),
   ],
 })
-export class SignInPageModule {}
+export class VerifyotpPageModule {}

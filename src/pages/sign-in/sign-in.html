@@ -5,15 +5,18 @@
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="doSignIn()">
+    <div id="recaptcha-container"></div>
+  <form (ngSubmit)="doSignIn(phonenumber)">
     <ion-list>
       <ion-item>
         <ion-label floating>Enter your Nickname</ion-label>
-        <ion-input type="text" [(ngModel)]="data.nickname" name="nickname" required=""></ion-input>
+        <ion-input type="text" [(ngModel)]="phonenumber" name="phoneno" required=""></ion-input>
       </ion-item>
       <ion-item>
         <button ion-button full round color="secondary" type="submit">Enter</button>
+        <button ion-button (click)="doLogin()">login</button>
       </ion-item>
     </ion-list>
   </form>
+
 </ion-content>

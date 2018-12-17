@@ -17,6 +17,10 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
+  doSignIn(){
+
+    this.navCtrl.push('VerifyotpPage')
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');

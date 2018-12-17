@@ -1,14 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { RoomPage } from  '../room/room';
+import { IonicPage, NavController, NavParams ,AlertController } from 'ionic-angular';
 import * as firebase from 'firebase';
-
-/**
- * Generated class for the SignInPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -16,41 +8,40 @@ import * as firebase from 'firebase';
   templateUrl: 'sign-in.html',
 })
 export class SignInPage {
+public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
+windowRef: any;
 
-  data = { nickname:"" };
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
+  }
+  doLogin(){
+
+      this.navCtrl.push('LoginPage')
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignInPage');
-  }
+    ionViewDidLoad() {
+       this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container',{
+         'size': 'invisible',
+         'callback': function(response) {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          onSignInSubmit();
+          }
+       });
+    }
+    doSignIn(phonenumber:number){
+        const appVerifier = this.recaptchaVerifier;
+        const phoneNumberString = "+91"+phonenumber;
+        firebase.auth().signInWithPhoneNumber(phoneNumberString, appVerifier)
+         .then( confirmationResult => {
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+      this.navCtrl.push('VerifyotpPage',{
+        confirmationResult:confirmationResult
+      });
 
-  enterNickname() {
-  this.navCtrl.setRoot(HomePage, {
-    nickname: this.data.nickname
-    });
-  }
+      })
+        .catch(function (error) {
+          console.error("SMS not sent", error);
+        });
 
-doSignIn(){
-
-      // Turn off phone auth app verification.
-      firebase.auth().settings.appVerificationDisabledForTesting = true;
-
-      var phoneNumber = "+918056037995";
-      var testVerificationCode = "123456";
-
-      // This will render a fake reCAPTCHA as appVerificationDisabledForTesting is true.
-      // This will resolve after rendering without app verification.
-      var appVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-      // signInWithPhoneNumber will call appVerifier.verify() which will resolve with a fake
-      // reCAPTCHA response.
-      firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-          .then(function (confirmationResult) {
-            // confirmationResult can resolve with the whitelisted testVerificationCode above.
-            return confirmationResult.confirm(testVerificationCode)
-          }).catch(function (error) {
-            // Error; SMS not sent
-            // ...
-          });
-           }
+ }
 }

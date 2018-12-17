@@ -22,8 +22,8 @@ export class HomePage {
 }
 
   doLogin(){
-    
-      // this.navCtrl.push('LoginPage')
+
+      this.navCtrl.push('LoginPage')
   }
   doSignIn(){
 
@@ -32,8 +32,8 @@ export class HomePage {
 
   ionViewDidLoad() {
       this.ref.on('value', resp => {
-      this.data = [];
-      this.data = snapshotToArray(resp);
+      // this.data = [];
+      // this.data = snapshotToArray(resp);
     });
   }
 

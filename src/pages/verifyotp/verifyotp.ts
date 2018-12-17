@@ -29,7 +29,7 @@ export class VerifyotpPage {
   }
 
   doVerifyOtp(otp:string) {
-    const verificationCode = otp;
+    var verificationCode = otp;
     console.log("OTP is"+verificationCode);
     this.confirmationResult
                   .confirm(verificationCode)
